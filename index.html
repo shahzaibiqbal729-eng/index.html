@@ -14,6 +14,12 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  transition:1s;
+}
+
+/* Night mode */
+.night{
+  background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
 }
 
 /* Glass card */
@@ -28,17 +34,9 @@ body{
   z-index:10;
 }
 
-h1{
-  color:#ff2e63;
-  font-weight:600;
-}
+h1{color:#ff2e63;font-weight:600;}
+p{color:#444;font-size:18px;}
 
-p{
-  color:#444;
-  font-size:18px;
-}
-
-/* Buttons */
 button{
   padding:14px 30px;
   font-size:18px;
@@ -60,22 +58,52 @@ button{
   position:absolute;
 }
 
-/* Tree animation */
+/* Night toggle button */
+.toggle{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:white;
+  border-radius:50%;
+  padding:10px;
+  cursor:pointer;
+  z-index:20;
+}
+
+/* 🌳 TREE */
 .tree{
   position:fixed;
   bottom:0;
   left:50%;
   transform:translateX(-50%);
-  font-size:130px;
-  animation:floatTree 4s ease-in-out infinite;
+  font-size:160px;
+  animation:treeFloat 5s ease-in-out infinite;
 }
 
-@keyframes floatTree{
+.flower{
+  position:absolute;
+  font-size:30px;
+  animation:flowerSwing 3s ease-in-out infinite;
+}
+
+.f1{top:15%; left:45%;}
+.f2{top:10%; left:55%;}
+.f3{top:25%; left:50%;}
+.f4{top:18%; left:60%;}
+.f5{top:12%; left:50%;}
+.f6{top:22%; left:40%;}
+
+@keyframes flowerSwing{
+  0%,100%{transform:rotate(-6deg);}
+  50%{transform:rotate(6deg);}
+}
+
+@keyframes treeFloat{
   0%,100%{transform:translateX(-50%) translateY(0);}
-  50%{transform:translateX(-50%) translateY(-15px);}
+  50%{transform:translateX(-50%) translateY(-12px);}
 }
 
-/* Hearts background */
+/* Floating hearts */
 .heart{
   position:fixed;
   font-size:18px;
@@ -100,6 +128,29 @@ button{
   100%{transform:translateX(110vw) translateY(-10vh);}
 }
 
+/* Sparkles */
+.sparkle{
+  position:fixed;
+  font-size:14px;
+  animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:0.2;}
+  50%{opacity:1;}
+}
+
+/* Falling petals */
+.petal{
+  position:fixed;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+
 /* Fade in */
 @keyframes fadeIn{
   from{opacity:0; transform:scale(0.8);}
@@ -110,16 +161,27 @@ button{
 
 <body>
 
+<!-- Night mode toggle -->
+<div class="toggle" onclick="toggleNight()">🌙</div>
+
 <audio autoplay loop>
 <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
-<!-- Tree -->
-<div class="tree">🌳🌸🌺🌼</div>
+<!-- TREE -->
+<div class="tree">
+  🌳
+  <div class="flower f1">🌸</div>
+  <div class="flower f2">🌺</div>
+  <div class="flower f3">🌼</div>
+  <div class="flower f4">🌷</div>
+  <div class="flower f5">🌹</div>
+  <div class="flower f6">🌻</div>
+</div>
 
-<!-- Card -->
+<!-- CARD -->
 <div class="box">
-<h1>Hey Beautiful Manju 💖</h1>
+<h1 id="typing"></h1>
 <p>Will you be my Friendship Valentine?</p>
 
 <button class="yes" onclick="yes()">YES 💞</button>
@@ -127,6 +189,23 @@ button{
 </div>
 
 <script>
+/* Typing text */
+const text="Hey Beautiful Manju 💖";
+let i=0;
+function typing(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typing,70);
+  }
+}
+typing();
+
+/* Night mode */
+function toggleNight(){
+  document.body.classList.toggle("night");
+}
+
 /* Moving NO button */
 const noBtn=document.getElementById("noBtn");
 function moveNo(){
@@ -140,9 +219,9 @@ function noClick(){
   alert("Try again 😜💖");
 }
 
-/* YES click effect */
+/* YES click hearts */
 function yes(){
-  for(let i=0;i<100;i++){
+  for(let i=0;i<120;i++){
     const heart=document.createElement("div");
     heart.className="heart";
     heart.innerHTML="💖";
@@ -169,7 +248,7 @@ function createHeart(){
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),10000);
 }
-setInterval(createHeart,800);
+setInterval(createHeart,900);
 
 /* Butterflies */
 function createButterfly(){
@@ -181,6 +260,30 @@ function createButterfly(){
   setTimeout(()=>b.remove(),10000);
 }
 setInterval(createButterfly,2000);
+
+/* Sparkles */
+function createSparkle(){
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.innerHTML="✨";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+}
+setInterval(createSparkle,500);
+
+/* Falling petals */
+function createPetal(){
+  const p=document.createElement("div");
+  p.className="petal";
+  p.innerHTML="🌸";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
+}
+setInterval(createPetal,1200);
 </script>
 
 </body>
