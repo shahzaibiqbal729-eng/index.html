@@ -5,153 +5,182 @@
 <title>Hey Beautiful Manju 💖</title>
 
 <style>
-body {
-  margin: 0;
-  overflow: hidden;
-  height: 100vh;
-  font-family: 'Georgia', serif;
-  background: linear-gradient(to bottom, #ffc0cb, #ffe6f0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#ffc0cb,#ffe4ec,#fff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* Card */
-.box {
-  background: white;
-  padding: 35px;
+/* Glass card */
+.box{
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.25);
   border-radius: 25px;
+  padding: 40px;
   text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  max-width: 420px;
-  z-index: 10;
+  box-shadow: 0 8px 40px rgba(255,105,135,0.3);
+  animation: fadeIn 2s ease;
+  z-index:10;
 }
 
-h1 { color: #d6336c; }
-p { font-size: 18px; color: #444; }
-
-button {
-  padding: 14px 30px;
-  font-size: 18px;
-  border-radius: 30px;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
+h1{
+  color:#ff2e63;
+  font-weight:600;
 }
 
-.yes { background: #ff4d6d; color: white; }
-.no  { background: #adb5bd; color: white; position: absolute; }
+p{
+  color:#444;
+  font-size:18px;
+}
 
-/* Tree */
-.tree {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 120px;
-  z-index: 1;
+/* Buttons */
+button{
+  padding:14px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  margin:10px;
+  cursor:pointer;
+}
+
+.yes{
+  background:linear-gradient(45deg,#ff4d6d,#ff8fa3);
+  color:white;
+  box-shadow:0 0 15px #ff4d6d;
+}
+
+.no{
+  background:#adb5bd;
+  color:white;
+  position:absolute;
+}
+
+/* Tree animation */
+.tree{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:130px;
+  animation:floatTree 4s ease-in-out infinite;
+}
+
+@keyframes floatTree{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(-15px);}
+}
+
+/* Hearts background */
+.heart{
+  position:fixed;
+  font-size:18px;
+  animation:floatUp linear infinite;
+  opacity:0.7;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
 }
 
 /* Butterflies */
-.butterfly {
-  position: fixed;
-  font-size: 22px;
-  animation: fly linear infinite;
+.butterfly{
+  position:fixed;
+  font-size:22px;
+  animation:fly 8s linear infinite;
 }
 
-@keyframes fly {
-  0%   { transform: translateY(100vh) translateX(0); }
-  100% { transform: translateY(-10vh) translateX(50px); }
+@keyframes fly{
+  0%{transform:translateX(-10vw) translateY(80vh);}
+  100%{transform:translateX(110vw) translateY(-10vh);}
 }
 
-/* Hearts floating */
-.heart {
-  position: fixed;
-  font-size: 18px;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(100vh); opacity: 1; }
-  to   { transform: translateY(-10vh); opacity: 0; }
+/* Fade in */
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.8);}
+  to{opacity:1; transform:scale(1);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Romantic Music -->
 <audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
-<!-- Big Flower Tree -->
-<div class="tree">🌳🌸🌼🌺</div>
+<!-- Tree -->
+<div class="tree">🌳🌸🌺🌼</div>
 
+<!-- Card -->
 <div class="box">
-  <h1>Hey Beautiful Manju 💖</h1>
-  <p>Will you be my Friendship Valentine?</p>
+<h1>Hey Beautiful Manju 💖</h1>
+<p>Will you be my Friendship Valentine?</p>
 
-  <button class="yes" onclick="yes()">YES 💞</button>
-  <button class="no" id="noBtn" onclick="noClick()">NO 😅</button>
+<button class="yes" onclick="yes()">YES 💞</button>
+<button class="no" id="noBtn" onclick="noClick()">NO 😅</button>
 </div>
 
 <script>
 /* Moving NO button */
-const noBtn = document.getElementById("noBtn");
-function moveNo() {
-  noBtn.style.top = Math.random() * 80 + "vh";
-  noBtn.style.left = Math.random() * 80 + "vw";
+const noBtn=document.getElementById("noBtn");
+function moveNo(){
+  noBtn.style.top=Math.random()*80+"vh";
+  noBtn.style.left=Math.random()*80+"vw";
 }
-noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("mouseover",moveNo);
 
-/* NO click message */
-function noClick() {
+/* NO click */
+function noClick(){
   alert("Try again 😜💖");
 }
 
-/* YES click hearts */
-function yes() {
-  for (let i = 0; i < 80; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+/* YES click effect */
+function yes(){
+  for(let i=0;i<100;i++){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(3+Math.random()*3)+"s";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+    setTimeout(()=>heart.remove(),6000);
   }
 
-  document.body.innerHTML += `
-    <div style="position:fixed;top:40%;width:100%;text-align:center;">
-      <h1 style="color:#d6336c;">Yayyyy 💕</h1>
-      <p style="font-size:20px;">You are my favorite person 🌸</p>
-    </div>`;
+  document.body.innerHTML+=`
+  <div style="position:fixed;top:40%;width:100%;text-align:center;">
+  <h1 style="color:#ff2e63;">Yayyyy 💕</h1>
+  <p style="font-size:22px;">You are my favorite person Manju 🌸</p>
+  </div>`;
 }
-
-/* Butterflies generator */
-function createButterfly() {
-  const b = document.createElement("div");
-  b.className = "butterfly";
-  b.innerHTML = "🦋";
-  b.style.left = Math.random() * 100 + "vw";
-  b.style.animationDuration = (6 + Math.random() * 4) + "s";
-  document.body.appendChild(b);
-  setTimeout(() => b.remove(), 10000);
-}
-setInterval(createButterfly, 800);
 
 /* Floating hearts background */
-function createHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💗";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = (5 + Math.random() * 5) + "s";
+function createHeart(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(6+Math.random()*4)+"s";
   document.body.appendChild(h);
-  setTimeout(() => h.remove(), 10000);
+  setTimeout(()=>h.remove(),10000);
 }
-setInterval(createHeart, 900);
+setInterval(createHeart,800);
+
+/* Butterflies */
+function createButterfly(){
+  const b=document.createElement("div");
+  b.className="butterfly";
+  b.innerHTML="🦋";
+  b.style.animationDuration=(6+Math.random()*4)+"s";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),10000);
+}
+setInterval(createButterfly,2000);
 </script>
 
 </body>
